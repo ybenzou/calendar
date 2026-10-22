@@ -1,0 +1,30 @@
+appId: com.desktop.calendar
+productName: Desktop Calendar
+directories:
+  output: release
+files:
+  - out/**/*
+  - package.json
+asar: true
+afterPack: scripts/after-pack.cjs
+asarUnpack:
+  - node_modules/better-sqlite3/**/*
+extraResources:
+  - from: native/bin/desktop-bridge.exe
+    to: desktop-bridge.exe
+  - from: resources
+    to: assets
+extraFiles:
+  - from: native/bin/calendar.exe
+    to: calendar.exe
+win:
+  target: nsis
+  icon: resources/generated/calendar.ico
+  signAndEditExecutable: false
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  deleteAppDataOnUninstall: false
+  include: scripts/installer.nsh
+  artifactName: Desktop-Calendar-${version}-${arch}-setup.${ext}

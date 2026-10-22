@@ -1,0 +1,60 @@
+{
+  "name": "desktop-calendar",
+  "version": "0.2.22",
+  "private": true,
+  "description": "Local-first programmable Windows desktop calendar",
+  "main": "out/main/index.js",
+  "packageManager": "pnpm@10.11.1",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build && node scripts/build-cli.mjs",
+    "native:build": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-native.ps1",
+    "cli": "node out/cli/index.cjs",
+    "lint": "eslint src tests",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/test.mjs",
+    "test:e2e": "playwright test",
+    "test:package": "node scripts/smoke-package.mjs",
+    "pack": "pnpm build && pnpm native:build && electron-builder --dir",
+    "dist:win": "pnpm build && pnpm native:build && electron-builder --win nsis --x64",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "better-sqlite3": "12.4.6",
+    "commander": "13.1.0",
+    "leaflet": "1.9.4",
+    "luxon": "3.7.2",
+    "node-ical": "0.27.3",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.1",
+    "@playwright/test": "1.56.1",
+    "@types/better-sqlite3": "7.6.13",
+    "@types/leaflet": "1.9.21",
+    "@types/luxon": "3.7.1",
+    "@types/node": "22.19.0",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@vitejs/plugin-react": "5.1.0",
+    "electron": "39.8.10",
+    "electron-builder": "26.0.12",
+    "electron-vite": "4.0.1",
+    "esbuild": "0.25.12",
+    "eslint": "9.39.1",
+    "rcedit": "4.0.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.46.3",
+    "vite": "7.1.12",
+    "vitest": "3.2.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "better-sqlite3",
+      "esbuild"
+    ]
+  }
+}
